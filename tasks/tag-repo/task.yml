@@ -1,0 +1,18 @@
+---
+platform: linux
+image_resource:
+  type: docker-image
+  source:
+    repository: springcloud/pipeline-base
+inputs:
+  - name: tools
+  - name: repo
+  - name: version
+outputs:
+  - name: out
+run:
+  path: /bin/bash
+  args:
+    - tools/tasks/tag-repo/task.sh
+params:
+  TAG_PREFIX:

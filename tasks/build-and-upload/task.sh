@@ -43,7 +43,3 @@ export TERM=dumb
 echo "Building and uploading the projects artifacts"
 
 build
-
-echo "Tagging the project with dev tag"
-echo "dev/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/tag
-cp -r ${ROOT_FOLDER}/${REPO_RESOURCE}/. ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
