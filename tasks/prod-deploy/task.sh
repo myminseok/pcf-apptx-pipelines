@@ -39,7 +39,3 @@ echo "Deploying the built application on test environment"
     echo "No ${cwd}/pipeline.sh found"
 
 performGreenDeployment
-
-echo "Tagging the project with prod tag"
-echo "prod/${PIPELINE_VERSION}" > ${ROOT_FOLDER}/${REPO_RESOURCE}/tag
-cp -r ${ROOT_FOLDER}/${REPO_RESOURCE}/. ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/
