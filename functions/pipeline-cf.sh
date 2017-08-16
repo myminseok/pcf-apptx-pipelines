@@ -127,6 +127,53 @@ function restartApp() {
     cf restart "${appName}"
 }
 
+function deployEureka() {
+    local jarName="${1}"
+    local appName="${2}"
+    local env="${3}"
+    echo "Deploying Eureka. Options - jar name [${jarName}], app name [${appName}], env [${env}]"
+    local fileExists="true"
+    local fileName="`pwd`/${OUTPUT_FOLDER}/${jarName}.jar"
+    if [[ ! -f "${fileName}" ]]; then
+        fileExists="false"
+    fi
+    deployAppWithName "${appName}" "${jarName}" "${env}"
+    restartApp "${appName}"
+    createServiceWithName "${appName}"
+}
+
+function deployStubRunnerBoot() {
+    local jarName="${1}"
+    local repoWithJars="${2}"
+    local rabbitName="${3}"
+    local eurekaName="${4}"
+    local env="${5:-test}"
+    local stubRunnerName="${6:-stubrunner}"
+    local fileExists="true"
+    local fileName="`pwd`/${OUTPUT_FOLDER}/${jarName}.jar"
+    local stubRunnerUseClasspath="${STUBRUNNER_USE_CLASSPATH:-false}"
+    if [[ ! -f "${fileName}" ]]; then
+        fileExists="false"
+    fi
+    echo "Deploying Stub Runner. Options jar name [${jarName}], app name [${stubRunnerName}]"
+    deployAppWithName "${stubRunnerName}" "${jarName}" "${env}" "false"
+    local prop="$( retrieveStubRunnerIds )"
+    echo "Found following stub runner ids [${prop}]"
+    setEnvVar "${stubRunnerName}" "stubrunner.ids" "${prop}"
+    if [[ "${stubRunnerUseClasspath}" == "false" ]]; then
+        setEnvVar "${stubRunnerName}" "stubrunner.repositoryRoot" "${repoWithJars}"
+    fi
+    if [[ "${rabbitName}" != "" ]]; then
+        bindService "${rabbitName}" "${stubRunnerName}"
+        setEnvVar "${stubRunnerName}" "spring.rabbitmq.addresses" "\${vcap.services.${rabbitName}.credentials.uri}"
+    fi
+    if [[ "${eurekaName}" != "" ]]; then
+        bindService "${eurekaName}" "${stubRunnerName}"
+        setEnvVar "${stubRunnerName}" "eureka.client.serviceUrl.defaultZone" "\${vcap.services.${eurekaName}.credentials.uri:http://127.0.0.1:8761}/eureka/"
+    fi
+    restartApp "${stubRunnerName}"
+}
+
 function bindService() {
     local serviceName="${1}"
     local appName="${2}"
