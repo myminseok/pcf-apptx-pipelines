@@ -45,6 +45,6 @@ lowerCaseProjectType=$( echo "${PROJECT_TYPE}" | tr '[:upper:]' '[:lower:]' )
     echo "No ${CWD}/projectType/pipeline-${lowerCaseProjectType}.sh found"
 
 [[ -f "${CWD}/pipeline.sh" ]] && source "${CWD}/pipeline.sh" || \
-    echo "No ${cwd}/pipeline.sh found"
+    echo "No ${CWD}/pipeline.sh found"
 
 runE2eTests
