@@ -237,7 +237,8 @@ function deployMySql() {
     local foundApp=$( serviceExists "mysql" "${serviceName}" )
     if [[ "${foundApp}" == "false" ]]; then
         hostname="${hostname}-${PAAS_HOSTNAME_UUID}"
-        (cf cs p-mysql 100mb-dev "${serviceName}" && echo "Started MySQL") ||
+        (cf cs p-mysql 100mb "${serviceName}" && echo "Started MySQL") ||
+        (cf cs p-mysql 100mb-dev "${serviceName}" && echo "Started MySQL for Dev") ||
         (cf cs p-mysql 512mb "${serviceName}" && echo "Started MySQL for PCF Dev") ||
         (cf cs cleardb spark "${serviceName}" && echo "Started MySQL for PWS")
     else
