@@ -25,4 +25,5 @@ function testResultsAntPattern() {
     echo "**/surefire-reports/*"
 }
 
+export -f outputFolder
 export -f testResultsAntPattern

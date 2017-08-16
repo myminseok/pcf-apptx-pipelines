@@ -254,6 +254,21 @@ function propagatePropertiesForTests() {
     cat ${fileLocation}
 }
 
+function readTestPropertiesFromFile() {
+    local fileLocation="${1:-${OUTPUT_FOLDER}/test.properties}"
+    if [ -f "${fileLocation}" ]
+    then
+      echo "${fileLocation} found."
+      while IFS='=' read -r key value
+      do
+        key=$(echo ${key} | tr '.' '_')
+        eval "${key}='${value}'"
+      done < "${fileLocation}"
+    else
+      echo "${fileLocation} not found."
+    fi
+}
+
 function toLowerCase() {
     local string=${1}
     local result=$( echo "${string}" | tr '[:upper:]' '[:lower:]' )

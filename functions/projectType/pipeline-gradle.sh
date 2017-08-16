@@ -25,4 +25,5 @@ function testResultsAntPattern() {
     echo "**/test-results/*.xml"
 }
 
+export -f outputFolder
 export -f testResultsAntPattern
