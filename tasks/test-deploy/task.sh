@@ -41,6 +41,6 @@ export TERM=dumb
 echo "Deploying the built application on test environment"
 
 [[ -f "${CWD}/pipeline.sh" ]] && source "${CWD}/pipeline.sh" || \
-    echo "No ${cwd}/pipeline.sh found"
+    echo "No ${CWD}/pipeline.sh found"
 
 testDeploy
