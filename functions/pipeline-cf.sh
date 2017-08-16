@@ -68,6 +68,15 @@ function appHost() {
     echo "${APP_HOST}" | tail -1
 }
 
+function deployAndRestartAppWithName() {
+    local appName="${1}"
+    local jarName="${2}"
+    local env="${ENVIRONMENT}"
+    echo "Deploying and restarting app with name [${appName}] and jar name [${jarName}]"
+    deployAppWithName "${appName}" "${jarName}" "${env}" 'true'
+    restartApp "${appName}"
+}
+
 function deployAppWithName() {
     local appName="${1}"
     local jarName="${2}"

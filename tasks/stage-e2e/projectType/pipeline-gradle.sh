@@ -1,12 +1,6 @@
 #!/bin/bash
 set -e
 
-function retrieveAppName() {
-    local result=$( ./gradlew artifactId -q )
-    result=$( echo "${result}" | tail -1 )
-    echo "${result}"
-}
-
 function runE2eTests() {
     # Retrieves Application URL
     retrieveApplicationUrl
@@ -20,14 +14,4 @@ function runE2eTests() {
     fi
 }
 
-function outputFolder() {
-    echo "build/libs"
-}
-
-function testResultsAntPattern() {
-    echo "**/test-results/*.xml"
-}
-
 export -f runE2eTests
-export -f outputFolder
-export -f testResultsAntPattern
