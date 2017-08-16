@@ -42,4 +42,8 @@ export TERM=dumb
 
 echo "Building and uploading the projects artifacts"
 
+lowerCaseProjectType=$( echo "${PROJECT_TYPE}" | tr '[:upper:]' '[:lower:]' )
+[[ -f "${CWD}/projectType/pipeline-${lowerCaseProjectType}.sh" ]] && source "${CWD}/projectType/pipeline-${lowerCaseProjectType}.sh" || \
+    echo "No ${CWD}/projectType/pipeline-${lowerCaseProjectType}.sh found"
+
 build
