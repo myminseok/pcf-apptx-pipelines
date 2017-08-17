@@ -36,6 +36,21 @@ function retrieveStubRunnerIds() {
     echo "$( extractMavenProperty 'stubrunner.ids' )"
 }
 
+function retrieveVersion() {
+    local version=${PIPELINE_VERSION}
+    if [ "${USE_PIPELINE_VERSION}" = false ]; then
+      local currentVersion=$( retrieveCurrentVersion )
+      version=${currentVersion:-${PIPELINE_VERSION}}
+    fi
+    echo "${version}"
+}
+
+function retrieveCurrentVersion() {
+    local result=$( ruby -r rexml/document -e 'puts REXML::Document.new(File.new(ARGV.shift)).elements["/project/version"].text' pom.xml || ./mvnw ${BUILD_OPTIONS} org.apache.maven.plugins:maven-help-plugin:2.2:evaluate -Dexpression=project.version |grep -Ev '(^\[|Download\w+:)' )
+    result=$( echo "${result}" | tail -1 )
+    echo "${result}"
+}
+
 function printTestResults() {
     echo -e "\n\nBuild failed!!! - will print all test results to the console (it's the easiest way to debug anything later)\n\n" && tail -n +1 "$( testResultsAntPattern )"
 }
