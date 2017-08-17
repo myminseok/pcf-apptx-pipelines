@@ -17,7 +17,11 @@ function testDeploy() {
     deployServices
 
     # deploy app
-    downloadAppBinary ${REPO_WITH_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    if isSnapshot; then
+        downloadAppBinary ${REPO_WITH_SNAPSHOT_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    else
+        downloadAppBinary ${REPO_WITH_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    fi
     deployAndRestartAppWithNameForSmokeTests ${appName} "${appName}-${PIPELINE_VERSION}" "${UNIQUE_RABBIT_NAME}" "${UNIQUE_EUREKA_NAME}" "${UNIQUE_MYSQL_NAME}"
     propagatePropertiesForTests ${appName}
 }

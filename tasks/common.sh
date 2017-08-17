@@ -88,5 +88,9 @@ function lowerCaseEnv() {
     echo "${ENVIRONMENT}" | tr '[:upper:]' '[:lower:]'
 }
 
+function isSnapshot() {
+    echo "${PIPELINE_VERSION}" | grep -ioq "SNAPSHOT"
+}
+
 echo "Current environment is [${ENVIRONMENT}]"
 export LOWER_CASE_ENV=$( lowerCaseEnv )
