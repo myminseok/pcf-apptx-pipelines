@@ -13,7 +13,11 @@ function stageDeploy() {
 
     deployServices
 
-    downloadAppBinary ${REPO_WITH_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    if isSnapshot; then
+        downloadAppBinary ${REPO_WITH_SNAPSHOT_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    else
+        downloadAppBinary ${REPO_WITH_BINARIES} ${projectGroupId} ${appName} ${PIPELINE_VERSION}
+    fi
 
     # deploy app
     deployAndRestartAppWithName ${appName} "${appName}-${PIPELINE_VERSION}"
