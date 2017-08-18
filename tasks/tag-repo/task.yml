@@ -16,3 +16,4 @@ run:
     - tools/tasks/tag-repo/task.sh
 params:
   TAG_PREFIX:
+  APPEND_TIMESTAMP:
