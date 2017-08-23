@@ -86,7 +86,6 @@ function deployAppWithName() {
     local lowerCaseAppName=$( toLowerCase "${appName}" )
     local hostname="${lowerCaseAppName}"
     local memory="${APP_MEMORY_LIMIT:-256m}"
-    local timeout="${PUSH_TIMEOUT_IN_SECONDS:-300}"
     local buildPackUrl="${JAVA_BUILDPACK_URL:-https://github.com/cloudfoundry/java-buildpack.git#v3.8.1}"
     if [[ "${PAAS_HOSTNAME_UUID}" != "" ]]; then
         hostname="${hostname}-${PAAS_HOSTNAME_UUID}"
@@ -96,7 +95,7 @@ function deployAppWithName() {
     fi
     echo "Deploying app with name [${lowerCaseAppName}], env [${env}] with manifest [${useManifest}] and host [${hostname}]"
     if [[ ! -z "${manifestOption}" ]]; then
-        cf push "${lowerCaseAppName}" -m "${memory}" -i 1 -t "${timeout}" -p "${OUTPUT_FOLDER}/${jarName}.jar" -n "${hostname}" --no-start -b "${buildPackUrl}" ${manifestOption}
+        cf push "${lowerCaseAppName}" -m "${memory}" -i 1 -p "${OUTPUT_FOLDER}/${jarName}.jar" -n "${hostname}" --no-start -b "${buildPackUrl}" ${manifestOption}
     else
         cf push "${lowerCaseAppName}" -p "${OUTPUT_FOLDER}/${jarName}.jar" -n "${hostname}" --no-start -b "${buildPackUrl}"
     fi
