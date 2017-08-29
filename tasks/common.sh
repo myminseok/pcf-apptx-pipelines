@@ -92,5 +92,16 @@ function isSnapshot() {
     echo "${PIPELINE_VERSION}" | grep -ioq "SNAPSHOT"
 }
 
+function copyArtifactToOutputFolder {
+  local artifactId=$( retrieveAppName )
+  local groupId=$( retrieveGroupId )
+  local changedGroupId="$( echo "${groupId}" | tr . / )"
+  local artifactVersion=${PIPELINE_VERSION}
+
+  echo "Copying artifacts from [${ROOT_FOLDER}/${REPO_RESOURCE}/${OUTPUT_FOLDER}] to [${ROOT_FOLDER}/${OUTPUT_RESOURCE}]"
+  mkdir -p ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/${changedGroupId}/${artifactId}/${artifactVersion}/
+  cp -p ${ROOT_FOLDER}/${REPO_RESOURCE}/${OUTPUT_FOLDER}/${artifactId}-${artifactVersion}.jar ${ROOT_FOLDER}/${OUTPUT_RESOURCE}/${changedGroupId}/${artifactId}/${artifactVersion}/${artifactId}-${artifactVersion}.jar
+}
+
 echo "Current environment is [${ENVIRONMENT}]"
 export LOWER_CASE_ENV=$( lowerCaseEnv )

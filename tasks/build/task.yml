@@ -14,4 +14,4 @@ outputs:
 run:
   path: /bin/bash
   args:
-    - repo/ci/tasks/build/task.sh
+    - tools/tasks/build/task.sh

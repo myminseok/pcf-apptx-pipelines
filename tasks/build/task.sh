@@ -44,3 +44,4 @@ lowerCaseProjectType=$( echo "${PROJECT_TYPE}" | tr '[:upper:]' '[:lower:]' )
     echo "No ${CWD}/projectType/pipeline-${lowerCaseProjectType}.sh found"
 
 build
+copyArtifactToOutputFolder
