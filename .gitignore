@@ -8,3 +8,4 @@ credentials.yml
 keys/
 target
 build
+!tasks/build
