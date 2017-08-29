@@ -15,7 +15,7 @@ outputs:
   - name: out
 
 run:
-  path: from-repo/ci/tasks/merge-branch/task.sh
+  path: tools/tasks/merge-branch/task.sh
 
 params:
   GIT_EMAIL:

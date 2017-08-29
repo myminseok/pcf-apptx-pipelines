@@ -16,7 +16,7 @@ outputs:
   - name: updated-version
 
 run:
-  path: repo/ci/tasks/get-version/task.sh
+  path: tools/tasks/get-version/task.sh
 
 params:
   GIT_EMAIL:

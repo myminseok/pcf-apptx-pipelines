@@ -18,7 +18,7 @@ outputs:
   - name: out
 
 run:
-  path: repo-master/ci/tasks/bump-to-next-develop-version/task.sh
+  path: tools/tasks/bump-to-next-develop-version/task.sh
 
 params:
   GIT_EMAIL:

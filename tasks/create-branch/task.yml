@@ -14,7 +14,7 @@ outputs:
   - name: out
 
 run:
-  path: repo/ci/tasks/create-branch/task.sh
+  path: tools/tasks/create-branch/task.sh
 
 params:
   GIT_EMAIL:
