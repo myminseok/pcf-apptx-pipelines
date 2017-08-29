@@ -1,0 +1,23 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: springcloud/pipeline-base
+
+inputs:
+  - name: version
+  - name: tools
+  - name: repo
+  - name: m2
+
+outputs:
+  - name: updated-version
+
+run:
+  path: repo/ci/tasks/get-version/task.sh
+
+params:
+  GIT_EMAIL:
+  GIT_NAME:
