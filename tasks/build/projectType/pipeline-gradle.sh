@@ -10,8 +10,8 @@ function build() {
         ./gradlew clean build -PnewVersion=${PIPELINE_VERSION} --stacktrace ${BUILD_OPTIONS}
     fi
 
-    local artifactId="sample-spring-cloud-svc"
-    local groupId="org.bk"
+    local artifactId=$( retrieveAppName )
+    local groupId=$( retrieveGroupId )
     local changedGroupId="$( echo "${groupId}" | tr . / )"
     local artifactVersion=${PIPELINE_VERSION}
 
