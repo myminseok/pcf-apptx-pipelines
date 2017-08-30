@@ -1,25 +1,22 @@
 ---
 platform: linux
-
 image_resource:
   type: docker-image
   source:
     repository: java
     tag: 8-jdk
-
 inputs:
   - name: tools
   - name: version
   - name: repo-release
   - name: repo-master
-  - name: m2
-
 outputs:
   - name: out
-
+caches:
+  - path: .gradle/
+  - path: .m2/
 run:
   path: tools/tasks/bump-to-next-develop-version/task.sh
-
 params:
   GIT_EMAIL:
   GIT_NAME:
