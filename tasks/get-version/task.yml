@@ -11,8 +11,8 @@ inputs:
 outputs:
   - name: updated-version
 caches:
-  - path: .gradle/
-  - path: .m2/
+  - path: gradle
+  - path: maven
 run:
   path: tools/tasks/get-version/task.sh
 params:

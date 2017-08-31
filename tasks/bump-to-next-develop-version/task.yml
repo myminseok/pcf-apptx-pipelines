@@ -13,8 +13,8 @@ inputs:
 outputs:
   - name: out
 caches:
-  - path: .gradle/
-  - path: .m2/
+  - path: gradle
+  - path: maven
 run:
   path: tools/tasks/bump-to-next-develop-version/task.sh
 params:
