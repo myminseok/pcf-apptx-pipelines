@@ -7,7 +7,7 @@
 #
 # Examples:
 #   $ ./tools/cp-sc-pipeline-tasks.sh
-#   $ ./tools/deploy-infra.sh ../repos/pivotal/
+#   $ ./cp-sc-pipeline-tasks.sh master ../repos/pivotal/
 #
 
 set -o errexit
@@ -15,11 +15,13 @@ set -o errexit
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-if [[ $# -lt 1 ]]; then
-	DEST_DIR="$( mktemp -d )"
-else
-	DEST_DIR="$1"
-fi
+BRANCH=${1:-master}
+SRC_DIR="$2"
+
+function cleanup {
+	local srcdir="$1"
+  rm -rf ${srcdir}
+}
 
 function copy_pipelines {
 	local project_repo="$1"
@@ -27,27 +29,34 @@ function copy_pipelines {
 
 	project_name="$( basename "${project_repo}" )"
 
-	echo "Cloning ${project_name} to ${DEST_DIR}"
+	if [ ! -d "$SRC_DIR" ]; then
+		echo "Cloning ${project_name} to ${SRC_DIR}"
 
-	pushd "${DEST_DIR}"
-	rm -rf "${project_name}"
-	git clone "${project_repo}" "${project_name}" && cd "${project_name}"/concourse
-	local tasks=$(ls tasks/*.yml | awk '{ print $1 }')
+		SRC_DIR="$( mktemp -d )"
+		pushd "${SRC_DIR}"
+			rm -rf "${project_name}"
+			git clone "${project_repo}" "${project_name}" && cd "${project_name}"/concourse
+			git checkout ${BRANCH}
+		popd
+		trap 'cleanup "${SRC_DIR}"' EXIT
+	fi
 
-	for task in ${tasks}; do
-		local task_folder=$(echo ${task} | sed 's/\.yml/\/task.yml/g')
-		local script_folder=$(echo ${task} | sed 's/\.yml/\/task.sh/g')
-		local script=$(echo ${task} | sed 's/\.yml/\.sh/g')
-	  echo "Copy ${task} ${CWD}/../${task_folder}"
-		cp ${task} ${CWD}/../${task_folder}
-		echo "Copy ${script} ${CWD}/../${script_folder}"
-		cp ${script} ${CWD}/../${script_folder}
-	done
+	pushd "${SRC_DIR}"
+		local tasks=$(ls tasks/*.yml | awk '{ print $1 }')
+
+		for task in ${tasks}; do
+			local task_folder=$(echo ${task} | sed 's/\.yml/\/task.yml/g')
+			local script_folder=$(echo ${task} | sed 's/\.yml/\/task.sh/g')
+			local script=$(echo ${task} | sed 's/\.yml/\.sh/g')
+		  echo "Copy ${task} ${CWD}/../${task_folder}"
+			cp ${task} ${CWD}/../${task_folder}
+			echo "Copy ${script} ${CWD}/../${script_folder}"
+			cp ${script} ${CWD}/../${script_folder}
+		done
 	popd
-	rm -rf ${DEST_DIR}
 }
 
-echo "Destination directory to clone the apps is [${DEST_DIR}]"
+echo "Spring Cloud Pipelines directory is [${SRC_DIR}]"
 
 copy_pipelines "https://github.com/spring-cloud/spring-cloud-pipelines"
 
