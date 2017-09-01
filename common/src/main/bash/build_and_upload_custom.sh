@@ -4,11 +4,11 @@ set -o errexit
 
 CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-FUNCTIONS_FOLDER=${ROOT_FOLDER}/${TOOLS_RESOURCE}/functions
-TASKS_FOLDER=${ROOT_FOLDER}/${TOOLS_RESOURCE}/tasks
+FUNCTIONS_FOLDER=${ROOT_FOLDER}/${APPTX_RESOURCE}/functions
+TASKS_FOLDER=${ROOT_FOLDER}/${APPTX_RESOURCE}/tasks
 
-echo "Functions folder is [${FUNCTIONS_FOLDER}]"
-echo "Tasks folder is [${TASKS_FOLDER}]"
+echo "AppTx Functions folder is [${FUNCTIONS_FOLDER}]"
+echo "AppTx Tasks folder is [${TASKS_FOLDER}]"
 
 source ${TASKS_FOLDER}/common.sh
 
