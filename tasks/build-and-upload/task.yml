@@ -5,6 +5,7 @@ image_resource:
   source:
     repository: springcloud/pipeline-base
 inputs:
+  - name: apptx
   - name: tools
   - name: repo
   - name: version
@@ -16,4 +17,4 @@ caches:
 run:
   path: /bin/bash
   args:
-    - tools/tasks/build-and-upload/task.sh
+    - apptx/tasks/build-and-upload/task.sh
