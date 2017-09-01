@@ -6,11 +6,11 @@ image_resource:
     repository: springcloud/pipeline-base
 inputs:
   - name: version
-  - name: tools
+  - name: apptx
 outputs:
   - name: updated-version
 run:
-  path: tools/tasks/generate-version/task.sh
+  path: apptx/tasks/generate-version/task.sh
 params:
   GIT_EMAIL:
   GIT_NAME:
