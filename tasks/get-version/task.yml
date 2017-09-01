@@ -6,7 +6,7 @@ image_resource:
     repository: springcloud/pipeline-base
 inputs:
   - name: version
-  - name: tools
+  - name: apptx
   - name: repo
 outputs:
   - name: updated-version
@@ -14,7 +14,7 @@ caches:
   - path: gradle
   - path: maven
 run:
-  path: tools/tasks/get-version/task.sh
+  path: apptx/tasks/get-version/task.sh
 params:
   GIT_EMAIL:
   GIT_NAME:
