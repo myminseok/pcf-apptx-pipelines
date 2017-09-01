@@ -14,11 +14,10 @@ echo "AppTx resource folder is [${APPTX_RESOURCE}]"
 echo "Version resource folder is [${VERSION_RESOURCE}]"
 
 source ${ROOT_FOLDER}/${TOOLS_RESOURCE}/concourse/tasks/pipeline.sh
+cp -r ${ROOT_FOLDER}/${APPTX_RESOURCE}/common/src/main/bash/* ${SCRIPTS_OUTPUT_FOLDER}/
 
 echo "Building and uploading the projects artifacts"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
-
-cp -r ${ROOT_FOLDER}/${APPTX_RESOURCE}/common/src/main/bash/* ${SCRIPTS_OUTPUT_FOLDER}/
 
 . ${SCRIPTS_OUTPUT_FOLDER}/build_and_upload.sh
 
