@@ -7,12 +7,14 @@ CWD="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 export ROOT_FOLDER=$( pwd )
 export REPO_RESOURCE=repo
 export TOOLS_RESOURCE=tools
+export APPTX_RESOURCE=apptx
 export VERSION_RESOURCE=version
-export FUNCTIONS_FOLDER=${ROOT_FOLDER}/${TOOLS_RESOURCE}/functions
+export FUNCTIONS_FOLDER=${ROOT_FOLDER}/${APPTX_RESOURCE}/functions
 
 echo "Root folder is [${ROOT_FOLDER}]"
 echo "Repo resource folder is [${REPO_RESOURCE}]"
 echo "Tools resource folder is [${TOOLS_RESOURCE}]"
+echo "AppTx resource folder is [${APPTX_RESOURCE}]"
 echo "Version resource folder is [${VERSION_RESOURCE}]"
 echo "Functions folder is [${FUNCTIONS_FOLDER}]"
 
