@@ -13,6 +13,8 @@ fi
 function build() {
     echo "Additional Build Options [${BUILD_OPTIONS}]"
 
+    echo "Binaries are located at [${REPO_WITH_BINARIES}]"
+
     ./mvnw versions:set -DnewVersion=${PIPELINE_VERSION} ${BUILD_OPTIONS}
     if [[ "${CI}" == "CONCOURSE" ]]; then
         ./mvnw clean verify deploy -Ddistribution.management.release.id=${M2_SETTINGS_REPO_ID} -Ddistribution.management.release.url=${REPO_WITH_BINARIES} -Ddistribution.management.snapshot.url=${REPO_WITH_SNAPSHOT_BINARIES} -Drepo.with.binaries=${REPO_WITH_BINARIES} ${BUILD_OPTIONS} || ( $( printTestResults ) && return 1)
