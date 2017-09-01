@@ -13,7 +13,7 @@ echo "Tools resource folder is [${TOOLS_RESOURCE}]"
 echo "AppTx resource folder is [${APPTX_RESOURCE}]"
 echo "Version resource folder is [${VERSION_RESOURCE}]"
 
-source ${ROOT_FOLDER}/${SC_PIPELINES_RESOURCE}/concourse/tasks/pipeline.sh
+source ${ROOT_FOLDER}/${TOOLS_RESOURCE}/concourse/tasks/pipeline.sh
 
 echo "Building and uploading the projects artifacts"
 cd ${ROOT_FOLDER}/${REPO_RESOURCE}
