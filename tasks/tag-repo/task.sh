@@ -4,7 +4,7 @@ set -o errexit
 
 export ROOT_FOLDER=$( pwd )
 export REPO_RESOURCE=repo
-export TOOLS_RESOURCE=tools
+export TOOLS_RESOURCE=apptx
 export VERSION_RESOURCE=version
 export OUTPUT_RESOURCE=out
 

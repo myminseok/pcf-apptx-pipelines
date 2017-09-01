@@ -5,7 +5,7 @@ image_resource:
   source:
     repository: springcloud/pipeline-base
 inputs:
-  - name: tools
+  - name: apptx
   - name: repo
   - name: version
 outputs:
